@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PPF Sqft Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="brand-mark">m&sup2;</div>
+      <div>
+        <h1>PPF Sqft Calculator</h1>
+        <p>Measure front, back, side &amp; top in any unit — get the sqft you need to quote, saved and sorted by vehicle.</p>
+      </div>
+    </div>
+    <div class="tape">FRONT <span class="dash"></span> SIDE <span class="dash"></span> BACK <span class="dash"></span> TOP</div>
+  </header>
+
+  <main class="grid">
+    <!-- LEFT: measurement panel -->
+    <div>
+      <div class="panel">
+        <div class="vehicle-name-row">
+          <label class="field-label" for="vehicleName">Vehicle name</label>
+          <input type="text" id="vehicleName" placeholder="e.g. Hyundai Creta 2023" autocomplete="off">
+        </div>
+
+        <div class="coverage-row">
+          <label class="field-label" for="coverageInput">Coverage — what's being wrapped</label>
+          <div class="coverage-input-wrap">
+            <input type="text" id="coverageInput" list="coveragePresets" placeholder="e.g. Full Vehicle, Floating Roof, Front Bumper" autocomplete="off">
+            <button type="button" class="auto-fill-btn" id="autoFillBtn">Auto-fill from parts</button>
+          </div>
+          <datalist id="coveragePresets">
+            <option value="Full Vehicle">
+            <option value="Full Front">
+            <option value="Full Rear">
+            <option value="Partial Front">
+            <option value="Partial Rear">
+            <option value="Floating Roof">
+            <option value="Front Bumper">
+            <option value="Rear Bumper">
+          </datalist>
+          <div class="coverage-chips" id="coverageChips"></div>
+        </div>
+
+        <div class="mode-tabs">
+          <button class="mode-tab active" data-mode="simple" type="button">Simple · 4 panels</button>
+          <button class="mode-tab" data-mode="detailed" type="button">Detailed · itemised</button>
+        </div>
+
+        <div id="simplePanel">
+          <div class="cards" id="cardsHost"></div>
+        </div>
+
+        <div id="detailedPanel" style="display:none;">
+          <p class="mode-desc">Add a row for every panel you're wrapping — bumpers, doors, fenders, mirrors, pillars — each with its own size and quantity.</p>
+          <div class="chips" id="chipsHost"></div>
+          <div id="itemRowsWrap">
+            <div class="item-rows" id="itemRowsHost"></div>
+          </div>
+          <button class="add-row-btn" id="addRowBtn" type="button">+ Add custom part</button>
+          <datalist id="partNames"></datalist>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: summary receipt -->
+    <div class="summary">
+      <div class="panel">
+        <div class="receipt-title">Calculation summary</div>
+        <div class="receipt-coverage empty" id="receiptCoverage">Coverage not set</div>
+        <ul class="breakdown" id="breakdownList"></ul>
+        <div class="tear"></div>
+        <div class="total-row">
+          <span class="total-label">Total PPF required</span>
+          <span class="total-num" id="totalNum">0.00<small>sqft</small></span>
+        </div>
+        <button class="btn btn-primary" id="saveBtn" disabled>Save this vehicle</button>
+        <button class="btn btn-ghost" id="clearBtn">Clear form</button>
+        <div class="saved-hint" id="savedHint">📎 Saved vehicles stay in this browser, sorted A→Z below.</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- SAVED LIST -->
+  <div class="panel" style="margin-top:22px;">
+    <div class="list-head">
+      <h2>Saved vehicles</h2>
+      <div class="search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="searchBox" placeholder="Search by vehicle name…">
+      </div>
+    </div>
+    <div id="listHost"></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
